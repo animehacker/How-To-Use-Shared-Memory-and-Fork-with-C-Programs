@@ -1,5 +1,8 @@
 ﻿This is very old code I wrote years ago, but by popular request I am making it available for people who may be learning to use shared memory.
 
+Please view this Youtube video to see what this program does:
+https://www.youtube.com/watch?v=dbT7FAuHBcI
+
 Usage: producer [OPTION]
 Create print jobs to be destroyed by the consumer process.
 
