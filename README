@@ -1,0 +1,60 @@
+﻿This is very old code I wrote years ago, but by popular request I am making it available for people who may be learning to use shared memory.
+
+Usage: producer [OPTION]
+Create print jobs to be destroyed by the consumer process.
+
+  -m, --max-jobs           Max number of jobs that can be created before this process and the consumer process are terminated.
+  -j, --jobs-per-cycle     Number of jobs to create per cycle.
+  -l, --log-level          Log level detail from levels 1 to 3. You may want to increase the log level to capture more details.
+  -v, --verbose            Verbose output to the console.
+      --help     Display this help and exit.
+      --version  Output version information and exit.
+
+
+Examples:
+  producer --max-jobs 30 --jobs-per-cycle 6 --log-level 2  Create 6 jobs per cycle up to a total of 5 cycles. Log events in maximum detail.
+  producer -l 1 -m 18 -j 2                                 Create 2 jobs per cycle up to a total of 9 cycles. Log events in minimum detail.
+  producer --jobs-per-cycle 4 -m 48 -l 0                   Create 4 jobs per cycle up to a total of 12 cycles. Do not log events.
+
+Report bugs to me via creating an issue request.
+General help using this software can be found in the tutorial video.
+
+/code/C/final $ ./consumer --help
+Usage: consumer [OPTION]
+Destroy print jobs created by the producer.
+
+  -d, --destroy-jobs    Specify number of jobs to be destroyed per cycle. Number must be over zero.
+      --help     Display this help and exit.
+      --version  Output version information and exit.
+
+
+Examples:
+  consumer --destroy-jobs 1     Destroy 1 job per cycle.
+  consumer -d 3                 Destroy 3 jobs per cycle.
+
+Report Consumer bugs to cs166530@student.staffs.ac.uk
+General help using this software can be found in the the tutorial video.
+
+More help:
+
+cleansharedmem binary must be in the same directory as producer for automatic shared memory detaching to work.
+
+The Producer or Consumer processes are not permitted to be renamed, if a wrong name is found by this program then execution will be denied. For the purposes of stability and security you may not run multiple instances of Producer and Consumer, if existing
+instances are found to be running (including children instances) then execution will be denied. If other programs named 'producer' or 'consumer' are running then execution will also be denied.
+
+In the Producer process 'jobs per cycle' must be less than 'max jobs' and in the Consumer process the number of jobs to be destroyed must be less than max jobs.
+
+This program is designed to be compatible with most Linux distributions. If you want to run it on other operating systems such as Windows® or FreeBSD® you will need to adjust the source code accordingly.
+
+If you want to run the consumer process with predictable output then either run it at the same time as producer or run it when producer prompts user for input.
+
+There is also the 'cleansharedmem' process. This process does not have version information. However if you run it without any parameters given it will detach any shared memory segments
+used by the Producer and Consumer processes clearing up any potential runtime errors you may face with this program. These errors can occur when a process is killed prematurely without detaching from shared memory segments, locking out write access to the segment.
+
+Copyright 2019 Oliver Church
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
